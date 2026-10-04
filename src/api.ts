@@ -12,9 +12,13 @@ import type {
 } from './types'
 
 const BASE = '/api/v1'
+const TOKEN_KEY = 'expense-tracker-token'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${BASE}${path}`, init)
+  const headers = new Headers(init?.headers)
+  const token = window.localStorage.getItem(TOKEN_KEY)
+  if (token && !path.startsWith('/auth/google')) headers.set('Authorization', `Bearer ${token}`)
+  const response = await fetch(`${BASE}${path}`, { ...init, headers })
   if (!response.ok) {
     let message = `Request failed (${response.status})`
     try {
@@ -41,6 +45,12 @@ function jsonInit(method: string, body?: unknown): RequestInit {
 }
 
 export const api = {
+  signInWithGoogle: (credential: string) =>
+    request<{ token: string; user: { id: string; name: string; email: string; picture?: string } }>(
+      '/auth/google', jsonInit('POST', { credential }),
+    ),
+  getCurrentUser: () => request<{ id: string; name: string; email: string; picture?: string }>('/auth/me'),
+  signOut: () => request<void>('/auth/logout', { method: 'POST' }),
   getSummary: (from: string, to: string) =>
     request<AnalyticsSummary>(`/analytics/summary?from=${from}&to=${to}`),
   getMonthlyAnalytics: (year: number, timezone = 'Asia/Kolkata') =>

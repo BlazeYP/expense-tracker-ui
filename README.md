@@ -10,7 +10,13 @@ React frontend for the Finance Tracker backend. The home dashboard filters by da
 
 ## Run
 
-Backend must be running on `http://localhost:8080`.
+Create a Google OAuth client ID for a web application and add `http://localhost:5173` as an authorized JavaScript origin. Put the client ID in `.env.local`:
+
+```dotenv
+VITE_GOOGLE_CLIENT_ID=your-google-oauth-client-id
+```
+
+The backend must be running on `http://localhost:8080` with the matching `APP_AUTH_GOOGLE_CLIENT_ID` configured.
 
 ```bash
 cd expense-tracker-ui

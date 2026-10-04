@@ -202,6 +202,33 @@ textarea {
   padding: 1.5rem 1.75rem 2.5rem;
 }
 
+.login-page, .auth-loading {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 1.5rem;
+}
+
+.login-card {
+  width: min(100%, 430px);
+  padding: 3rem 2.5rem;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: var(--panel-solid);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.login-card h1 { margin: 0.7rem 0; font: 700 2.2rem var(--font-display); letter-spacing: -0.04em; }
+.login-card p { color: var(--ink-soft); line-height: 1.6; }
+.login-card small { display: block; margin-top: 1.5rem; color: var(--ink-soft); }
+.google-button-wrap { display: grid; justify-content: center; gap: 0.7rem; min-height: 44px; margin-top: 1.7rem; }
+.google-button-wrap span { color: var(--ink-soft); font-size: 0.85rem; }
+.account-panel { display: flex; align-items: center; gap: 0.55rem; margin-top: 1.4rem; padding: 0.6rem; border-top: 1px solid var(--line); color: var(--ink-soft); font-size: 0.76rem; }
+.account-panel img { width: 28px; height: 28px; border-radius: 50%; }
+.account-panel span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-panel button { padding: 0.35rem 0.5rem; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: var(--ink); cursor: pointer; font-size: 0.72rem; }
+
 .page-head {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
+import { useAuth } from '../auth'
 
 type Theme = 'light' | 'dark'
 
@@ -14,6 +15,7 @@ const links = [
 ]
 
 export function Layout() {
+  const { user, signOut } = useAuth()
   const [theme, setTheme] = useState<Theme>(() =>
     window.localStorage.getItem('expense-tracker-theme') === 'dark' ? 'dark' : 'light',
   )
@@ -48,6 +50,11 @@ export function Layout() {
             </NavLink>
           ))}
         </nav>
+        <div className="account-panel">
+          {user?.picture && <img src={user.picture} alt="" />}
+          <span title={user?.email}>{user?.name || user?.email}</span>
+          <button type="button" onClick={() => void signOut()} aria-label="Sign out">Sign out</button>
+        </div>
       </aside>
       <main className="main">
         <Outlet />
